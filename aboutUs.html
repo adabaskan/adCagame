@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>about us</title>
+  <link rel="icon" type="image/svg+xml" href="adCaTitle.svg" />
+  <link rel="icon" type="image/png" href="adCaTitle.png" />
+  <meta name="theme-color" content="#011222" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <style>
+    @font-face {
+      font-family: 'Schoon Square';
+      src: url('SchoonSquare-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    nav a, body a {
+      color: #c3b79d;
+    }
+
+    body {
+      background-color: #9bc8d9;
+      font-family: 'Schoon Square', sans-serif;
+      font-size: 30px;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #011222;
+      display: flex;
+      align-items: center;
+      padding: 10px 30px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      color: #c3b79d;
+      box-sizing: border-box;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      flex-shrink: 0;
+    }
+
+    .logo img {
+      display: block;
+      height: 96px;
+      width: 128px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+      margin-left: 120px;
+      align-items: center;
+      flex-grow: 0;
+      white-space: nowrap;
+    }
+
+    .menu a {
+      text-decoration: none;
+      transition: color 0.3s ease;
+      color: #c3b79d;
+      font-size: 30px;
+      flex-shrink: 0;
+    }
+
+    .menu a:hover {
+      color: #9bc8d9;
+    }
+
+    .masaustu-dil {
+      margin-left: auto;
+      margin-right: 40px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .masaustu-dil .dil {
+      font-size: 30px;
+      text-decoration: none;
+      color: #c3b79d;
+      transition: color 0.3s ease;
+    }
+
+    .masaustu-dil .dil:hover {
+      color: #9bc8d9;
+    }
+
+    .mobil-dil {
+      display: none;
+      margin-top: 20px;
+      text-align: left;
+      padding-left: 0;
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .mobil-dil .dil {
+      font-size: 24px;
+      text-decoration: none;
+      color: #c3b79d;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+      display: block;
+      text-align: left;
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .mobil-dil .dil:hover {
+      color: #9bc8d9;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 36px;
+      background: none;
+      border: none;
+      color: #c3b79d;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: 30px;
+    }
+
+    main {
+      padding: 150px 30px 250px 30px;
+      line-height: 1.8;
+      color: #011222;
+      font-size: 30px;
+      transition: padding 0.3s ease;
+    }
+
+    .baslik {
+      font-size: 50px;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #011222;
+      color: #c3b79d;
+      text-align: center;
+    }
+
+    @media (max-width: 803px) {
+      body {
+        font-size: 20px;
+      }
+
+      .menu {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 10px;
+      }
+
+      .menu.show {
+        display: flex;
+      }
+
+      .menu a {
+        font-size: 24px;
+        width: 100%;
+        white-space: normal;
+      }
+
+      .masaustu-dil {
+        display: none;
+      }
+
+      .mobil-dil {
+        display: block;
+      }
+
+      main {
+        padding: 120px 20px 150px 20px;
+        font-size: 24px;
+      }
+
+      .baslik {
+        font-size: 36px;
+      }
+
+      footer {
+        padding: 20px;
+        font-size: 18px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="home.html" class="logo"><img src="adCaWeb.svg" alt="logo" /></a>
+    <button class="menu-toggle">&#9776;</button>
+    <div class="menu">
+      <a href="home.html">home</a>    
+      <a href="games.html">games</a>
+      <a href="#">about us</a>
+      <a href="contactUs.html">contact us</a>
+      <div class="dil-bolumu mobil-dil">
+        <a href="hakkimizda.html" class="dil">english</a>
+      </div>
+    </div>
+    <div class="dil-bolumu masaustu-dil">
+      <a href="hakkimizda.html" class="dil">english</a>
+    </div>
+  </nav>
+
+  <main>
+    <p class="baslik">about us – adCa</p>
+    <p>Born in İzmir in 2025, adCa is more than just a dream.<br />
+      This creative endeavor, inspired by Ada Ceylan’s childhood dreams, sprouted at the intersection where imagination meets gameplay; from the very first keystroke to every line of code written today, there is passion and purpose, and every pixel drawn carries a carefully placed detail.</p>
+    <p>adCa is not formed by a team; it is a universe crafted by a single creator. Codes, visuals, sounds, mechanics, and even the fonts used are all created by one person. This is not loneliness; it is the essence of originality. Having everything come from a single hand gives adCa games a unique soul and character.</p>
+    <p>“We” is not a team; it is the voice of the ideas, critiques, and midnight inspirations that circle around adCa. Production is a solo effort, but the details are the product of a rather crowded mind.</p>
+    <p>At adCa, design begins with the unseen. We spend hours on a single pixel that no one might even notice because it’s that detail which makes the difference.</p>
+    <p>Every pixel carries an emotion, every design tells a story.<br />
+      We argue until dawn about whether “this pixel should be shifted a bit to the left.”<br />
+      Because design is not art for us, but an obsession, and a bit of stubbornness.</p>
+    <p>We dislike external dependence in design.<br />
+      Even the fonts used in the games are specially designed for adCa. Every letter is a part of the story we want to tell; it’s not borrowed from outside, but born from within.<br />
+      Because we cannot borrow our originality from others. To us, authenticity must come entirely from our own hands.</p>
+    <p>One day, everyone will have at least one adCa game on their phone. This is not just a dream; it is a carefully nurtured goal that becomes reality step by step every day. Otherwise, why would we painstakingly draw every letter by hand and shift every pixel slightly to the left?</p>
+    <p>adCa does not just obsess over details; it pushes boundaries to perfect each one.<br />
+      Every player who finishes an adCa game feels this:<br />
+      “The person who made this game left nothing to chance. Every scene, every moment is the result of a conscious choice.”</p>
+  </main>
+
+  <footer>
+    <a href="home.html"><img src="adCaWeb.svg" alt="logo" width="128" height="96" /></a>
+    <br />
+    <a href="privacyPolicy.html">privacy policy</a>
+    <br /><br />
+    <a href=""><img src="googlePlay.svg" width="32" height="32" alt="google play" /></a> 
+    <a href="https://www.instagram.com/adcagame/"><img src="instagram.svg" width="32" height="32" alt="instagram" /></a> 
+    <a href="https://x.com/adCagame"><img src="x.svg" width="32" height="32" alt="x" /></a>
+    <br /><br />
+    ada ceylan
+    <br /><br />
+    © 2025 adCa. all rights reserved.
+    <br /><br />
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleButton = document.querySelector(".menu-toggle");
+      const menu = document.querySelector(".menu");
+      const main = document.querySelector("main");
+
+      function updateMainPadding() {
+        const isMobile = window.innerWidth <= 803;
+
+        if (isMobile && menu.classList.contains("show")) {
+          main.style.paddingTop = "315px";
+        } else {
+          main.style.paddingTop = isMobile ? "120px" : "150px";
+        }
+      }
+
+      toggleButton.addEventListener("click", function () {
+        menu.classList.toggle("show");
+        updateMainPadding();
+      });
+
+      window.addEventListener("resize", updateMainPadding);
+
+      updateMainPadding(); // sayfa ilk yüklendiğinde çağır
+    });
+  </script>
+</body>
+</html>
+

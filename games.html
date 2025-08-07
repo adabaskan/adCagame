@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>games</title>
+  <link rel="icon" type="image/svg+xml" href="adCaTitle.svg" />
+  <link rel="icon" type="image/png" href="adCaTitle.png" />
+  <meta name="theme-color" content="#011222" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <style>
+    @font-face {
+      font-family: 'Schoon Square';
+      src: url('SchoonSquare-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    nav a, body a {
+      color: #c3b79d;
+    }
+
+    body {
+      background-color: #9bc8d9;
+      font-family: 'Schoon Square', sans-serif;
+      font-size: 30px;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #011222;
+      display: flex;
+      align-items: center;
+      padding: 10px 30px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      color: #c3b79d;
+      box-sizing: border-box;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      flex-shrink: 0;
+    }
+
+    .logo img {
+      display: block;
+      height: 96px;
+      width: 128px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+      margin-left: 120px;
+      align-items: center;
+      flex-grow: 0;
+      white-space: nowrap;
+    }
+
+    .menu a {
+      text-decoration: none;
+      transition: color 0.3s ease;
+      color: #c3b79d;
+      font-size: 30px;
+      flex-shrink: 0;
+    }
+
+    .menu a:hover {
+      color: #9bc8d9;
+    }
+
+    .masaustu-dil {
+      margin-left: auto;
+      margin-right: 40px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .masaustu-dil .dil {
+      font-size: 30px;
+      text-decoration: none;
+      color: #c3b79d;
+      transition: color 0.3s ease;
+    }
+
+    .masaustu-dil .dil:hover {
+      color: #9bc8d9;
+    }
+
+    .mobil-dil {
+      display: none;
+      margin-top: 20px;
+      text-align: left;
+      padding-left: 0;
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .mobil-dil .dil {
+      font-size: 24px;
+      text-decoration: none;
+      color: #c3b79d;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+      display: block;
+      text-align: left;
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .mobil-dil .dil:hover {
+      color: #9bc8d9;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 36px;
+      background: none;
+      border: none;
+      color: #c3b79d;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: 30px;
+    }
+
+    main {
+      padding: 150px 30px 250px 30px;
+      line-height: 1.8;
+      color: #011222;
+      font-size: 30px;
+      transition: padding 0.3s ease;
+    }
+
+    .baslik {
+      font-size: 50px;
+      text-align: center;
+    }
+
+    .alt-baslik {
+        font-size: 35px;
+        margin-bottom: 2px; 
+        }
+
+        .alt-baslik + p {
+        margin-top: 2px;
+        }
+
+    footer {
+      background-color: #011222;
+      color: #c3b79d;
+      text-align: center;
+    }
+
+    main a[href^="mailto:"] {
+          color: #011222;
+        }
+
+        .icerik-kapsayici {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 150px 30px 250px 30px;
+      font-size: 30px;
+      color: #011222;
+    }
+
+    .metin {
+      flex: 1;
+      padding-right: 30px;
+      line-height: 1.8;
+    }
+
+    .hamsi-bolumu {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center; /* İşte burası dikey ortalama için */
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .hamsi-bolumu img {
+      width: 256px;
+      height: 256px;
+      border-radius: 20px;
+    }
+
+    .hamsi-yazi-buton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* Bu, yazı+butonu dikey ortalar */
+      height: 256px; /* img ile aynı yükseklik */
+    }
+
+    .hamsi-yazi-buton p {
+      font-size: 70px;
+      margin: 0;
+      text-align: center;
+    }
+
+    .yukle-buton {
+      font-size: 30px;
+      font-family: 'Schoon Square', sans-serif;
+      background-color: #011222;
+      color: #9bc8d9;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .yukle-buton:hover {
+      background-color: #9bc8d9;
+      color: #011222;
+    }
+
+    @media (max-width: 803px) {
+      body {
+        font-size: 20px;
+      }
+
+      .menu {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 10px;
+      }
+
+      .menu.show {
+        display: flex;
+      }
+
+      .menu a {
+        font-size: 24px;
+        width: 100%;
+        white-space: normal;
+      }
+
+      .masaustu-dil {
+        display: none;
+      }
+
+      .mobil-dil {
+        display: block;
+      }
+
+      main {
+        padding: 120px 20px 150px 20px;
+        font-size: 24px;
+      }
+
+      .baslik {
+        font-size: 36px;
+      }
+
+      .alt-baslik {
+        font-size: 28px;
+      }
+
+      footer {
+        padding: 20px;
+        font-size: 18px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .icerik-kapsayici {
+    flex-direction: column;
+    padding: 100px 20px 150px 20px;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .metin {
+    padding-right: 0;
+    font-size: 24px;
+  }
+
+  .hamsi-bolumu {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hamsi-bolumu img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hamsi-yazi-buton {
+    height: auto;
+  }
+
+  .hamsi-yazi-buton p {
+    font-size: 40px;
+  }
+
+  .yukle-buton {
+    font-size: 24px;
+    padding: 10px 20px;
+  }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="home.html" class="logo"><img src="adCaWeb.svg" alt="logo" /></a>
+    <button class="menu-toggle">&#9776;</button>
+    <div class="menu">
+      <a href="home.html">home</a>    
+      <a href="#">games</a>
+      <a href="aboutUs.html">about us</a>
+      <a href="contactUs.html">contact us</a>
+      <div class="dil-bolumu mobil-dil">
+        <a href="oyunlarimiz.html" class="dil">english</a>
+      </div>
+    </div>
+    <div class="dil-bolumu masaustu-dil">
+      <a href="oyunlarimiz.html" class="dil">english</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="icerik-kapsayici">
+      <!-- Sol taraf: metin -->
+      <div class="metin">
+        <p>
+          swim through the dark waters of the deep sea and fight to survive! 
+          <br> 
+          beware of giant fish, packs of roaming predators, and dangerous debris that could appear at any moment. use your reflexes, navigate through narrow passages, and collect points to reach the highest score. how far can you go? are you the most agile swimmer?
+        </p>
+      </div>
+
+      <!-- Sağ taraf: görsel + yazı ve buton (dikeyde ortalanmış) -->
+      <div class="hamsi-bolumu">
+        <img src="hamsiLogo.svg" alt="Hamsi Logo">
+        <div class="hamsi-yazi-buton">
+          <p>hamsi</p>
+          <button onclick="window.location.href='#'" class="yukle-buton">install</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <a href="home.html"><img src="adCaWeb.svg" alt="logo" width="128" height="96" /></a>
+    <br />
+    <a href="privacyPolicy.html">privacy policy</a>
+    <br /><br />
+    <a href=""><img src="googlePlay.svg" width="32" height="32" alt="google play" /></a> 
+    <a href="https://www.instagram.com/adcagame/"><img src="instagram.svg" width="32" height="32" alt="instagram" /></a> 
+    <a href="https://x.com/adCagame"><img src="x.svg" width="32" height="32" alt="x" /></a>
+    <br /><br />
+    ada ceylan
+    <br /><br />
+    © 2025 adCa. all rights reserved.
+    <br /><br />
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleButton = document.querySelector(".menu-toggle");
+      const menu = document.querySelector(".menu");
+      const main = document.querySelector("main");
+
+      function updateMainPadding() {
+        const isMobile = window.innerWidth <= 803;
+
+        if (isMobile && menu.classList.contains("show")) {
+          main.style.paddingTop = "315px";
+        } else {
+          main.style.paddingTop = isMobile ? "120px" : "150px";
+        }
+      }
+
+      toggleButton.addEventListener("click", function () {
+        menu.classList.toggle("show");
+        updateMainPadding();
+      });
+
+      window.addEventListener("resize", updateMainPadding);
+
+      updateMainPadding(); // sayfa ilk yüklendiğinde çağır
+    });
+  </script>
+</body>
+</html>
+
