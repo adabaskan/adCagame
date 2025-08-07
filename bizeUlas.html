@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>bize ulaş</title>
-  <link rel="icon" type="image/svg+xml" href="adCaTitle.svg" />
-  <link rel="icon" type="image/png" href="adCaTitle.png" />
+  <link rel="icon" type="image/svg+xml" href="adCaLogo.svg" />
+  <link rel="icon" type="image/png" href="adCaLogo.png" />
   <meta name="theme-color" content="#011222" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -337,8 +337,17 @@
       `ad: ${name}\nsoyad: ${surname}\ne-posta: ${email}\n\nmesaj:\n${message}`
     );
 
+    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    // mobil → mail uygulamasını aç
+    const mailtoLink = `mailto:adcagame@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = mailtoLink;
+  } else {
+    // masaüstü → Gmail web arayüzünü aç
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=adcagame@gmail.com&su=${subject}&body=${body}`;
     window.open(gmailUrl, "_blank");
+  }
     });
 
 
@@ -377,4 +386,5 @@ if (soyad) document.getElementById('surname').value = soyad;
   </script>
 </body>
 </html>
+
 
