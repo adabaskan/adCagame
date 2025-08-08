@@ -491,6 +491,16 @@
     padding: 8px 16px;
   }
 
+  .form-element {
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  br.bosluk {
+    display: none;
+  }
+
   .hakkimizda-kutu {
     width: 100%;
     font-size: 24px;
@@ -574,12 +584,12 @@
       <div class="form-container">
         <form id="contactForm" action="bizeUlas.html" method="GET" autocomplete="off">
           <label for="ad">adınız:</label><br>
-          <input type="text" id="ad" name="ad" class="form-input"><br><br>
+          <input type="text" id="ad" name="ad" class="form-input form-element"><br><br class="bosluk">
 
           <label for="soyad">soyadınız:</label><br>
-          <input type="text" id="soyad" name="soyad" class="form-input"><br><br>
+          <input type="text" id="soyad" name="soyad" class="form-input form-element"><br><br class="bosluk">
 
-          <button type="submit" class="form-button">mesaj gönder</button>
+          <button type="submit" class="form-button form-element">mesaj gönder</button>
         </form>
       </div>
       <div class="bizeUlas-mesaj">ses ver, <br> duyuyoruz!</div>
@@ -749,6 +759,7 @@ const grid = document.getElementById("grid");
   </script>
 </body>
 </html>
+
 
 
 
