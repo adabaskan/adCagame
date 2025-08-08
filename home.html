@@ -491,10 +491,15 @@
     padding: 8px 16px;
   }
 
-  /*.form-element {
-    width: 200px;
+  .form-element {
+    margin: 0 auto;
+    display: block;
     box-sizing: border-box;
-  }*/
+  }
+
+  br.bosluk {
+    display: none;
+  }
 
   .hakkimizda-kutu {
     width: 100%;
@@ -579,12 +584,12 @@
       <div class="form-container">
         <form id="contactForm" action="contactUs.html" method="GET" autocomplete="off">
           <label for="ad">name:</label><br>
-          <input type="text" id="ad" name="ad" class="form-input form-element"><br><br>
+          <input type="text" id="ad" name="ad" class="form-input form-element"><br><br class="bosluk">
 
           <label for="soyad">surname:</label><br>
-          <input type="text" id="soyad" name="soyad" class="form-input form-element"><br><br>
+          <input type="text" id="soyad" name="soyad" class="form-input form-element"><br><br class="bosluk">
 
-          <button type="submit" class="form-button form-element">send message</button>
+          <button type="submit" class="form-button form-element">send a message</button>
         </form>
       </div>
       <div class="bizeUlas-mesaj">speak up, <br> we’re listening!</div>
@@ -753,6 +758,7 @@ const grid = document.getElementById("grid");
   </script>
 </body>
 </html>
+
 
 
 
