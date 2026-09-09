@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>güncelleme - adCa</title>
+    <link rel="icon" type="image/svg+xml" href="adCa-title.svg">
+    <style>
+        @font-face {
+            font-family: 'SchoonSquare';
+            src: url('SchoonSquare-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #272b36;
+            color: #7a9a8c;
+            font-family: 'SchoonSquare', Arial, sans-serif;
+            font-weight: normal;
+            padding: 30px;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        header {
+            background-color: #0f172a;
+            height: 128px;
+            padding: 0 30px;
+            box-sizing: border-box;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: block;
+            position: relative;
+            width: 64px;
+            height: 64px;
+            cursor: pointer;
+        }
+
+        .logo-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .logo-default { opacity: 1; }
+        .logo-hover { opacity: 0; }
+
+        .logo-link:hover .logo-default { opacity: 0; }
+        .logo-link:hover .logo-hover { opacity: 1; }
+
+        h2 {
+            font-size: 32px;
+            margin: 0;
+            color: #7a9a8c;
+            font-weight: normal;
+        }
+
+        .form-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lang-switch-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background-color: #272b36;
+            color: #7a9a8c;
+            border: 2px solid #7a9a8c;
+            padding: 0 16px;
+            height: 40px;
+            line-height: 36px;
+            border-radius: 6px;
+            font-size: 20px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background-color: #7a9a8c;
+            color: #0f172a;
+        }
+
+        .form-card {
+            background-color: #0f172a;
+            padding: 30px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input, textarea {
+            background-color: #7a9a8c;
+            border: 2px solid #7a9a8c;
+            padding: 14px 16px;
+            border-radius: 8px;
+            color: #0f172a;
+            font-size: 26px;
+            font-family: inherit;
+            font-weight: normal;
+            outline: none;
+            box-sizing: border-box;
+            line-height: normal;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #0f172a;
+            opacity: 1;
+        }
+
+        input {
+            height: 57px;
+            padding-top: 0;
+            padding-bottom: 0;
+            line-height: 57px;
+        }
+
+        textarea#newsContent, textarea#newsContentEn {
+            resize: none;
+            overflow-y: hidden;
+            height: 75px;
+            min-height: 75px;
+        }
+
+        textarea#sourceHtml, textarea#outputHtml {
+            resize: vertical;
+            height: 75px;
+            min-height: 75px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #7a9a8c;
+            outline: none;
+        }
+
+        button.submit-btn {
+            background-color: #7a9a8c;
+            color: #0f172a;
+            border: none;
+            padding: 0 18px;
+            height: 57px;
+            line-height: 57px;
+            border-radius: 8px;
+            font-size: 26px;
+            font-family: inherit;
+            font-weight: normal;
+            cursor: pointer;
+            box-sizing: border-box;
+            transition: all 0.2s;
+        }
+
+        button.submit-btn:hover {
+            background-color: #272b36;
+            color: #7a9a8c;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .news-list > p {
+            font-size: 26px;
+            margin: 0;
+            color: #7a9a8c;
+        }
+
+        .news-item {
+            background-color: #7a9a8c;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .news-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .news-title {
+            margin: 0;
+            color: #0f172a;
+            font-size: 32px;
+            font-weight: normal;
+            word-break: normal;
+            overflow-wrap: break-word;
+            flex-grow: 1;
+        }
+
+        .news-content {
+            margin: 0;
+            font-size: 26px;
+            color: #0f172a;
+            font-weight: normal;
+            word-break: normal;
+            overflow-wrap: break-word;
+        }
+
+        .news-right-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .news-date-lang-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: -8px;
+        }
+
+        .news-date {
+            margin: 0;
+            font-size: 25px;
+            color: #0f172a;
+            font-weight: normal;
+            line-height: 0.8;
+        }
+
+        .delete-btn {
+            background-color: #c51818;
+            color: white;
+            border: 2px solid #c51818;
+            padding: 0 18px;
+            height: 40px;
+            line-height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: normal;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            transition: all 0.2s;
+        }
+
+        .delete-btn:hover {
+            background-color: #272b36;
+            color: #7a9a8c;
+            border-color: #272b36;
+        }
+
+        #toastNotification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #0f172a;
+            color: #7a9a8c;
+            border: 2px solid #7a9a8c;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease-in-out;
+            z-index: 9999;
+        }
+
+        #toastNotification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .undo-btn {
+            background-color: #7a9a8c;
+            color: #0f172a;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 20px;
+            font-family: inherit;
+            cursor: pointer;
+            font-weight: normal;
+            transition: background-color 0.2s;
+        }
+
+        .undo-btn:hover {
+            background-color: #272b36;
+            color: #7a9a8c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="index.html" target="_blank" class="logo-link">
+                <img src="adCa-logo.svg" alt="adCa" class="logo-img logo-default">
+                <img src="adCa-logo-hover-dark.svg" alt="adCa" class="logo-img logo-hover">
+            </a>
+        </header>
+
+        <div class="form-card">
+            <h2 id="htmlTitle">kodu ekle</h2>
+            <textarea id="sourceHtml" placeholder="kod"></textarea>
+            <button class="submit-btn" onclick="queryCode()">kodu sorgula</button>
+        </div>
+
+        <div class="form-card">
+            <div class="form-header-row">
+                <h2 id="formTitle">güncelleme ekle</h2>
+                <div class="lang-switch-container">
+                    <button class="lang-btn active" id="btnTr" onclick="switchLanguage('tr')">tr</button>
+                    <button class="lang-btn" id="btnEn" onclick="switchLanguage('en')">en</button>
+                </div>
+            </div>
+            
+            <div id="trFormGroup" style="display: flex; flex-direction: column; gap: 20px;">
+                <input type="text" id="newsTitle" placeholder="başlık">
+                <textarea id="newsContent" placeholder="içerik"></textarea>
+            </div>
+
+            <div id="enFormGroup" style="display: none; flex-direction: column; gap: 20px;">
+                <input type="text" id="newsTitleEn" placeholder="title">
+                <textarea id="newsContentEn" placeholder="content"></textarea>
+            </div>
+
+            <button class="submit-btn" id="submitBtn" onclick="generateCode()">güncellemeyi ekle</button>
+        </div>
+
+        <div class="form-card" id="newsCardSection" style="display:none;">
+            <h2>eklenen güncellemeler</h2>
+            <div class="news-list" id="newsList"></div>
+        </div>
+
+        <div class="form-card" id="outputCard" style="display:none;">
+            <h2 id="outputTitle">güncellenmiş kod</h2>
+            <textarea id="outputHtml" readonly></textarea>
+            <button class="submit-btn" onclick="copyCode()">kodu kopyala</button>
+        </div>
+    </div>
+
+    <div id="toastNotification">
+        <span id="toastMessage">güncelleme silindi</span>
+        <button class="undo-btn" id="toastUndoBtn" onclick="undoDelete()">geri al</button>
+    </div>
+
+    <script>
+        if (localStorage.getItem("adCaAdminLoggedIn") !== "true") {
+            window.location.href = "admin.html";
+        }
+
+        let lastDeletedItem = null;
+        let toastTimeout = null;
+        let currentLangTab = 'tr';
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const contentTextarea = document.getElementById("newsContent");
+            if (contentTextarea) {
+                contentTextarea.addEventListener("input", function() {
+                    this.style.height = "75px";
+                    this.style.height = (this.scrollHeight) + "px";
+                });
+            }
+
+            const contentTextareaEn = document.getElementById("newsContentEn");
+            if (contentTextareaEn) {
+                contentTextareaEn.addEventListener("input", function() {
+                    this.style.height = "75px";
+                    this.style.height = (this.scrollHeight) + "px";
+                });
+            }
+        });
+
+        function switchLanguage(lang) {
+            currentLangTab = lang;
+            const btnTr = document.getElementById("btnTr");
+            const btnEn = document.getElementById("btnEn");
+            const trGroup = document.getElementById("trFormGroup");
+            const enGroup = document.getElementById("enFormGroup");
+
+            if (lang === 'tr') {
+                btnTr.classList.add("active");
+                btnEn.classList.remove("active");
+                trGroup.style.display = "flex";
+                enGroup.style.display = "none";
+            } else {
+                btnEn.classList.add("active");
+                btnTr.classList.remove("active");
+                enGroup.style.display = "flex";
+                trGroup.style.display = "none";
+            }
+        }
+
+        function queryCode() {
+            const htmlSource = document.getElementById("sourceHtml").value;
+            if (!htmlSource.trim()) {
+                alert("lütfen kodu ekleyin!");
+                return;
+            }
+
+            parseNewsFromHtml(htmlSource);
+            loadNews();
+
+            document.getElementById("newsCardSection").style.display = "flex";
+            
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        function parseNewsFromHtml(htmlString) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlString, "text/html");
+            const cardElements = doc.querySelectorAll(".news-card");
+
+            if (cardElements.length > 0) {
+                let parsedNews = [];
+                cardElements.forEach((card, index) => {
+                    const titleEl = card.querySelector("h2");
+                    const dateEl = card.querySelector(".news-card-date");
+                    const contentEl = card.querySelector("p");
+
+                    if (titleEl) {
+                        parsedNews.push({
+                            id: Date.now() + index,
+                            title: titleEl.textContent.trim(),
+                            content: contentEl ? contentEl.innerHTML.trim() : "",
+                            date: dateEl ? dateEl.textContent.trim() : new Date().toLocaleDateString("tr-TR"),
+                            titleEn: "",
+                            contentEn: ""
+                        });
+                    }
+                });
+
+                if (parsedNews.length > 0) {
+                    localStorage.setItem("adCaNews", JSON.stringify(parsedNews));
+                }
+            }
+        }
+
+        function addNews() {
+            const title = document.getElementById("newsTitle").value.trim();
+            const content = document.getElementById("newsContent").value.trim();
+            const titleEn = document.getElementById("newsTitleEn").value.trim();
+            const contentEn = document.getElementById("newsContentEn").value.trim();
+
+            if (!title) {
+                alert("lütfen türkçe başlığı doldurun!");
+                return null;
+            }
+
+            if (!titleEn) {
+                alert("lütfen ingilizce başlığı doldurun!");
+                return null;
+            }
+
+            const newsItem = {
+                id: Date.now(),
+                title: title,
+                content: content,
+                titleEn: titleEn,
+                contentEn: contentEn,
+                date: new Date().toLocaleDateString("tr-TR")
+            };
+
+            let newsList = JSON.parse(localStorage.getItem("adCaNews")) || [];
+            newsList.unshift(newsItem);
+            localStorage.setItem("adCaNews", JSON.stringify(newsList));
+
+            document.getElementById("newsTitle").value = "";
+            document.getElementById("newsContent").value = "";
+            document.getElementById("newsContent").style.height = "75px";
+            document.getElementById("newsTitleEn").value = "";
+            document.getElementById("newsContentEn").value = "";
+            document.getElementById("newsContentEn").style.height = "75px";
+
+            loadNews();
+            showToast("güncelleme eklendi", false);
+
+            return newsItem;
+        }
+
+        function generateCode() {
+            const htmlSource = document.getElementById("sourceHtml").value;
+            if (!htmlSource.trim()) {
+                alert("lütfen kodu ekleyin!");
+                return;
+            }
+
+            const addedItem = addNews();
+            if (!addedItem) return;
+
+            document.getElementById("newsCardSection").style.display = "flex";
+            processAndShowCode();
+        }
+
+        function processAndShowCode() {
+            const htmlSource = document.getElementById("sourceHtml").value;
+            if (!htmlSource) return;
+
+            let newsList = JSON.parse(localStorage.getItem("adCaNews")) || [];
+
+            let generatedCardsHtmlTr = "";
+            let generatedCardsHtmlEn = "";
+
+            if (newsList.length === 0) {
+                generatedCardsHtmlTr = "<p style='text-align: center; font-size: 26px; color: #0f172a;'>henüz eklenmiş bir güncelleme yok.</p>";
+                generatedCardsHtmlEn = "<p style='text-align: center; font-size: 26px; color: #0f172a;'>no updates added yet.</p>";
+            } else {
+                newsList.forEach(item => {
+                    const tEn = item.titleEn || item.title;
+                    const cEn = item.contentEn || item.content;
+
+                    let contentHtmlTr = item.content ? `<p>${item.content}</p>` : "";
+                    let contentHtmlEn = cEn ? `<p>${cEn}</p>` : "";
+
+                    generatedCardsHtmlTr += `
+        <div class="news-card">
+            <div class="news-card-header">
+                <h2>${item.title}</h2>
+                <div class="news-card-right">
+                    <span class="news-card-date">${item.date}</span>
+                </div>
+            </div>
+            ${contentHtmlTr}
+        </div>`;
+
+                    generatedCardsHtmlEn += `
+        <div class="news-card">
+            <div class="news-card-header">
+                <h2>${tEn}</h2>
+                <div class="news-card-right">
+                    <span class="news-card-date">${item.date}</span>
+                </div>
+            </div>
+            ${contentHtmlEn}
+        </div>`;
+                });
+            }
+
+            let updatedHtml = htmlSource;
+            
+            const mainRegexTr = /<main id="newsContainer">([\s\S]*?)<\/main>/;
+            const mainRegexEn = /<main id="newsContainerEn">([\s\S]*?)<\/main>/;
+
+            if (mainRegexTr.test(updatedHtml)) {
+                updatedHtml = updatedHtml.replace(mainRegexTr, `<main id="newsContainer">\n${generatedCardsHtmlTr}\n    </main>`);
+            } else {
+                alert("Uyarı: Kod içinde <main id=\"newsContainer\"> bulunamadı.");
+                return;
+            }
+
+            if (mainRegexEn.test(updatedHtml)) {
+                updatedHtml = updatedHtml.replace(mainRegexEn, `<main id="newsContainerEn">\n${generatedCardsHtmlEn}\n    </main>`);
+            }
+
+            const outputCard = document.getElementById("outputCard");
+            const outputHtmlBox = document.getElementById("outputHtml");
+            
+            outputCard.style.display = "flex";
+            outputHtmlBox.value = updatedHtml;
+        }
+
+        function copyCode() {
+            const outputBox = document.getElementById("outputHtml");
+            outputBox.select();
+            document.execCommand("copy");
+            
+            showToast("kod kopyalandı", false);
+        }
+
+        function loadNews() {
+            const newsListContainer = document.getElementById("newsList");
+            newsListContainer.innerHTML = "";
+
+            let newsList = JSON.parse(localStorage.getItem("adCaNews")) || [];
+
+            if (newsList.length === 0) {
+                newsListContainer.innerHTML = "<p>henüz eklenmiş bir güncelleme yok.</p>";
+                return;
+            }
+
+            newsList.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "news-item";
+                
+                let contentText = item.content ? `<p class="news-content">${item.content}</p>` : "";
+
+                div.innerHTML = `
+                    <div class="news-header-row">
+                        <h3 class="news-title">${item.title}</h3>
+                        <div class="news-right-section">
+                            <div class="news-date-lang-col">
+                                <span class="news-date">${item.date}</span>
+                            </div>
+                            <button class="delete-btn" onclick="deleteNews(${item.id})">sil</button>
+                        </div>
+                    </div>
+                    ${contentText}
+                `;
+                newsListContainer.appendChild(div);
+            });
+        }
+
+        function deleteNews(id) {
+            let newsList = JSON.parse(localStorage.getItem("adCaNews")) || [];
+            
+            const index = newsList.findIndex(item => item.id === id);
+            if (index !== -1) {
+                lastDeletedItem = { item: newsList[index], index: index };
+            }
+
+            newsList = newsList.filter(item => item.id !== id);
+            localStorage.setItem("adCaNews", JSON.stringify(newsList));
+            loadNews();
+
+            const sourceHtml = document.getElementById("sourceHtml").value;
+            if (sourceHtml.trim()) {
+                processAndShowCode();
+            }
+
+            showToast("güncelleme silindi", true);
+        }
+
+        function undoDelete() {
+            if (!lastDeletedItem) return;
+
+            let newsList = JSON.parse(localStorage.getItem("adCaNews")) || [];
+            newsList.splice(lastDeletedItem.index, 0, lastDeletedItem.item);
+            localStorage.setItem("adCaNews", JSON.stringify(newsList));
+            
+            loadNews();
+
+            const sourceHtml = document.getElementById("sourceHtml").value;
+            if (sourceHtml.trim()) {
+                processAndShowCode();
+            }
+
+            hideToast();
+            lastDeletedItem = null;
+        }
+
+        function showToast(message, showUndo) {
+            const toast = document.getElementById("toastNotification");
+            const toastMsg = document.getElementById("toastMessage");
+            const undoBtn = document.getElementById("toastUndoBtn");
+
+            toastMsg.innerText = message;
+            
+            if (showUndo) {
+                undoBtn.style.display = "inline-block";
+            } else {
+                undoBtn.style.display = "none";
+            }
+
+            toast.classList.add("show");
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+
+            toastTimeout = setTimeout(() => {
+                hideToast();
+            }, 3000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById("toastNotification");
+            toast.classList.remove("show");
+        }
+    </script>
+</body>
+</html>
