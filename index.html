@@ -302,17 +302,6 @@
             color: #0f172a;
         }
 
-        .empty-message {
-            text-align: center;
-            font-size: 26px;
-            color: #0f172a;
-            margin: 0;
-        }
-
-        body.dark-theme .empty-message {
-            color: #7a9a8c;
-        }
-
         footer {
             background-color: #0f172a;
             padding: 20px 20px;
@@ -533,24 +522,19 @@
     </header>
 
     <main id="newsContainer">
+        <div class="news-card">
+            <div class="news-card-header">
+                <h2 data-tr="9 eylül izmir'in kurtuluşu kutlu olsun!" data-en="happy september 9th the anniversary of izmir's liberation!">9 eylül izmir'in kurtuluşu kutlu olsun!</h2>
+                <span class="news-card-date">09.09.2026</span>
+            </div>
+        </div>
 
         <div class="news-card">
             <div class="news-card-header">
-                <h2>9 eylül izmir'in kurtuluşu kutlu olsun!</h2>
-                <div class="news-card-right">
-                    <span class="news-card-date">09.09.2026</span>
-                </div>
+                <h2 data-tr="adCa game yenilendi!" data-en="adCa game has renewed!">adCa game yenilendi!</h2>
+                <span class="news-card-date">09.09.2026</span>
             </div>
-            
-        </div>
-        <div class="news-card">
-            <div class="news-card-header">
-                <h2>adCa game yenilendi!</h2>
-                <div class="news-card-right">
-                    <span class="news-card-date">09.09.2026</span>
-                </div>
-            </div>
-            <p>adCa game yeni logosu ve yepyeni kimliğiyle yayında.</p>
+            <p data-tr="adCa game yeni logosu ve yepyeni kimliğiyle yayında." data-en="adCa game is live with its new logo and brand new identity.">adCa game yeni logosu ve yepyeni kimliğiyle yayında.</p>
         </div>
     </main>
 
@@ -628,8 +612,6 @@
                     setLanguage("en");
                 }
             }
-            
-            renderNewsCards();
         });
 
         function applyTheme(theme) {
@@ -700,8 +682,6 @@
                     if (trText) el.innerText = trText;
                 }
             });
-
-            renderNewsCards();
         }
 
         function toggleLanguage() {
@@ -710,37 +690,6 @@
             } else {
                 setLanguage("tr");
             }
-        }
-
-        function renderNewsCards() {
-            const container = document.getElementById("newsContainer");
-            if (!container) return;
-
-            let newsList = JSON.parse(localStorage.getItem("adCaNews")) || [];
-
-            if (newsList.length === 0) {
-                container.innerHTML = `<p class="empty-message" data-tr="henüz eklenmiş bir güncelleme yok." data-en="no updates added yet.">${currentLang === 'en' ? 'no updates added yet.' : 'henüz eklenmiş bir güncelleme yok.'}</p>`;
-                return;
-            }
-
-            let htmlContent = "";
-            newsList.forEach(item => {
-                let title = currentLang === 'en' ? (item.titleEn || item.title) : item.title;
-                let content = currentLang === 'en' ? (item.contentEn || item.content) : item.content;
-
-                let contentHtml = content ? `<p>${content}</p>` : "";
-
-                htmlContent += `
-                <div class="news-card">
-                    <div class="news-card-header">
-                        <h2>${title}</h2>
-                        <span class="news-card-date">${item.date}</span>
-                    </div>
-                    ${contentHtml}
-                </div>`;
-            });
-
-            container.innerHTML = htmlContent;
         }
     </script>
 </body>
