@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-tr="ana sayfa - adCa" data-en="home - adCa">ana sayfa - adCa</title>
+    <link rel="icon" type="image/svg+xml" href="adCa-title.svg">
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <style>
+        @font-face {
+            font-family: 'SchoonSquare';
+            src: url('SchoonSquare-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #e0f6ed;
+            color: #0f172a;
+            font-family: 'SchoonSquare', Arial, sans-serif;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        body.dark-theme {
+            background-color: #272b36;
+            color: #7a9a8c;
+        }
+        
+        header {
+            background-color: #0f172a;
+            padding: 0 30px 0 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 112px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            height: 100%;
+        }
+
+        .logo-link {
+            display: inline-block;
+            line-height: 0;
+            text-decoration: none;
+            z-index: 10;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .logo-swap {
+            width: 64px;
+            height: 64px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .logo-wrapper .logo-default {
+            opacity: 1;
+        }
+
+        .logo-wrapper .logo-hover {
+            opacity: 0;
+        }
+
+        body:not(.dark-theme) .logo-wrapper:hover .logo-default {
+            opacity: 0;
+        }
+
+        body:not(.dark-theme) .logo-wrapper:hover .logo-hover {
+            opacity: 1;
+        }
+
+        body.dark-theme .logo-wrapper .logo-hover {
+            content: url('adCa-logo-hover-dark.svg');
+        }
+
+        body.dark-theme .logo-wrapper:hover .logo-default {
+            opacity: 0;
+        }
+
+        body.dark-theme .logo-wrapper:hover .logo-hover {
+            opacity: 1;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            height: 100%;
+        }
+
+        nav a, .lang-select, footer p {
+            font-size: 32px;
+            text-decoration: none;
+            color: #7a9a8c;
+            transition: color 0.2s ease-in-out;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        nav a {
+            height: 100%;
+        }
+
+        .lang-select {
+            cursor: pointer;
+        }
+
+        nav a:hover, .lang-select:hover {
+            color: #e0f6ed; 
+        }
+
+        body.dark-theme nav a:hover, body.dark-theme .lang-select:hover {
+            color: #272b36; 
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: #7a9a8c;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        nav a.active:hover::after {
+            background-color: #e0f6ed;
+        }
+
+        body.dark-theme nav a.active:hover::after {
+            background-color: #272b36;
+        }
+
+        .theme-toggle-btn {
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            line-height: 0;
+            z-index: 10;
+        }
+
+        .icon-wrapper {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .icon-swap {
+            width: 44px;
+            height: 44px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .icon-wrapper .icon-default {
+            opacity: 1;
+        }
+
+        .icon-wrapper .icon-hover {
+            opacity: 0;
+        }
+
+        .icon-wrapper:hover .icon-default {
+            opacity: 0;
+        }
+
+        .icon-wrapper:hover .icon-hover {
+            opacity: 1;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 32px;
+            background: none;
+            border: none;
+            color: #7a9a8c;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+            padding: 0;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .menu-toggle:hover {
+            color: #e0f6ed;
+        }
+
+        body.dark-theme .menu-toggle:hover {
+            color: #272b36;
+        }
+
+        main {
+            flex: 1;
+            padding: 150px 30px 50px 30px;
+            transition: padding 0.3s ease-in-out;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .news-card {
+            background-color: #0f172a;
+            padding: 30px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .news-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .news-card h2 {
+            margin: 0;
+            font-size: 32px;
+            color: #7a9a8c;
+            font-weight: normal;
+            word-break: normal;
+            overflow-wrap: break-word;
+        }
+
+        .news-card-date {
+            margin: 0;
+            font-size: 25px;
+            color: #7a9a8c;
+            opacity: 0.8;
+            font-weight: normal;
+            flex-shrink: 0;
+        }
+
+        .news-card p {
+            margin: 0;
+            font-size: 26px;
+            color: #7a9a8c;
+            font-weight: normal;
+            word-break: normal;
+            overflow-wrap: break-word;
+        }
+
+        body.dark-theme .news-card {
+            background-color: #7a9a8c;
+        }
+
+        body.dark-theme .news-card h2 {
+            color: #0f172a;
+        }
+
+        body.dark-theme .news-card-date {
+            color: #0f172a;
+        }
+
+        body.dark-theme .news-card p {
+            color: #0f172a;
+        }
+
+        .empty-message {
+            text-align: center;
+            font-size: 26px;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        body.dark-theme .empty-message {
+            color: #7a9a8c;
+        }
+
+        footer {
+            background-color: #0f172a;
+            padding: 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 35px;
+        }
+
+        footer p {
+            margin: 0;
+            text-align: center;
+        }
+
+        .footer-logo-wrapper {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 0;
+        }
+
+        .footer-logo-swap {
+            width: 64px;
+            height: 64px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .footer-logo-wrapper .logo-default {
+            opacity: 1;
+        }
+
+        .footer-logo-wrapper .logo-hover {
+            opacity: 0;
+        }
+
+        body:not(.dark-theme) .footer-logo-wrapper:hover .logo-default {
+            opacity: 0;
+        }
+
+        body:not(.dark-theme) .footer-logo-wrapper:hover .logo-hover {
+            opacity: 1;
+        }
+
+        body.dark-theme .footer-logo-wrapper .logo-hover {
+            content: url('adCa-logo-hover-dark.svg');
+        }
+
+        body.dark-theme .footer-logo-wrapper:hover .logo-default {
+            opacity: 0;
+        }
+
+        body.dark-theme .footer-logo-wrapper:hover .logo-hover {
+            opacity: 1;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            line-height: 0;
+            text-decoration: none;
+        }
+
+        .social-icon-wrapper {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .social-icon-swap {
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .social-icon-wrapper .social-default {
+            opacity: 1;
+        }
+
+        .social-icon-wrapper .social-hover {
+            opacity: 0;
+        }
+
+        body:not(.dark-theme) .social-icon-wrapper:hover .social-default {
+            opacity: 0;
+        }
+
+        body:not(.dark-theme) .social-icon-wrapper:hover .social-hover {
+            opacity: 1;
+        }
+
+        body.dark-theme .social-icon-wrapper .social-hover {
+            content: attr(data-dark-hover);
+        }
+
+        body.dark-theme .social-icon-wrapper:hover .social-default {
+            opacity: 0;
+        }
+
+        body.dark-theme .social-icon-wrapper:hover .social-hover {
+            opacity: 1;
+        }
+
+        .privacy-link {
+            font-size: 32px;
+            text-decoration: underline;
+            color: #7a9a8c;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .privacy-link:hover {
+            color: #e0f6ed;
+        }
+
+        body.dark-theme .privacy-link:hover {
+            color: #272b36;
+        }
+
+        .ada-text {
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 1100px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 112px;
+                left: 0;
+                width: 100%;
+                background-color: #0f172a;
+                padding: 25px 20px 25px 50px;
+                box-sizing: border-box;
+                gap: 16px; 
+                align-items: flex-start;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+                height: auto;
+                z-index: 999;
+            }
+
+            nav.show {
+                display: flex;
+            }
+
+            nav a {
+                font-size: 32px;
+                width: 100%;
+                display: block;
+                height: auto;
+            }
+
+            nav a.active::after {
+                display: none;
+            }
+
+            .header-right {
+                gap: 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <a href="index.html" class="logo-link">
+                <div class="logo-wrapper">
+                    <img src="adCa-logo.svg" alt="adCa Logo" class="logo-swap logo-default">
+                    <img id="logoHoverImg" src="adCa-logo-hover-light.svg" alt="adCa Logo Hover" class="logo-swap logo-hover">
+                </div>
+            </a>
+
+            <nav>
+                <a href="index.html" class="active" data-tr="ana sayfa" data-en="home">ana sayfa</a>
+                <a href="games.html" data-tr="oyunlar" data-en="games">oyunlar</a>
+                <a href="about-me.html" data-tr="hakkımda" data-en="about me">hakkımda</a>
+                <a href="contact-me.html" data-tr="bana ulaş" data-en="contact me">bana ulaş</a>
+            </nav>
+        </div>
+
+        <div class="header-right">
+            <span class="lang-select" id="langToggleBtn" onclick="toggleLanguage()">english</span>
+            
+            <a href="#" class="theme-toggle-btn" onclick="toggleTheme(); return false;">
+                <div class="icon-wrapper">
+                    <img id="themeIconDefault" src="dark-mode.svg" alt="Theme Icon" class="icon-swap icon-default">
+                    <img id="themeIconHover" src="dark-mode-hover.svg" alt="Theme Icon Hover" class="icon-swap icon-hover">
+                </div>
+            </a>
+
+            <button class="menu-toggle">&#9776;</button>
+        </div>
+    </header>
+
+    <main id="newsContainer">
+
+        <div class="news-card">
+            <div class="news-card-header">
+                <h2>9 eylül izmir'in kurtuluşu kutlu olsun!</h2>
+                <div class="news-card-right">
+                    <span class="news-card-date">09.09.2026</span>
+                </div>
+            </div>
+            
+        </div>
+        <div class="news-card">
+            <div class="news-card-header">
+                <h2>adCa game yenilendi!</h2>
+                <div class="news-card-right">
+                    <span class="news-card-date">09.09.2026</span>
+                </div>
+            </div>
+            <p>adCa game yeni logosu ve yepyeni kimliğiyle yayında.</p>
+        </div>
+    </main>
+
+    <footer>
+        <a href="index.html">
+            <div class="footer-logo-wrapper">
+                <img src="adCa-logo.svg" alt="adCa Logo" class="footer-logo-swap logo-default">
+                <img id="footerLogoHoverImg" src="adCa-logo-hover-light.svg" alt="adCa Logo Hover" class="footer-logo-swap logo-hover">
+            </div>
+        </a>
+
+        <a href="privacy-policy.html" class="privacy-link" data-tr="gizlilik politikası" data-en="privacy policy">gizlilik politikası</a>
+        
+        <div class="social-icons">
+            <a href="https://play.google.com/store/apps/dev?id=9086374546190987332" target="_blank">
+                <div class="social-icon-wrapper">
+                    <img src="google-play-store.svg" alt="Google Play Store" class="social-icon-swap social-default">
+                    <img class="social-icon-swap social-hover social-hover-icon" src="google-play-store-hover-light.svg" data-light-hover="google-play-store-hover-light.svg" data-dark-hover="google-play-store-hover-dark.svg" alt="Google Play Store Hover">
+                </div>
+            </a>
+            <a href="#" target="_blank">
+                <div class="social-icon-wrapper">
+                    <img src="app-store.svg" alt="App Store" class="social-icon-swap social-default">
+                    <img class="social-icon-swap social-hover social-hover-icon" src="app-store-hover-light.svg" data-light-hover="app-store-hover-light.svg" data-dark-hover="app-store-hover-dark.svg" alt="App Store Hover">
+                </div>
+            </a>
+            <a href="https://www.instagram.com/adcagame/" target="_blank">
+                <div class="social-icon-wrapper">
+                    <img src="instagram.svg" alt="Instagram" class="social-icon-swap social-default">
+                    <img class="social-icon-swap social-hover social-hover-icon" src="instagram-hover-light.svg" data-light-hover="instagram-hover-light.svg" data-dark-hover="instagram-hover-dark.svg" alt="Instagram Hover">
+                </div>
+            </a>
+            <a href="https://x.com/adCagame" target="_blank">
+                <div class="social-icon-wrapper">
+                    <img src="x.svg" alt="X" class="social-icon-swap social-default">
+                    <img class="social-icon-swap social-hover social-hover-icon" src="x-hover-light.svg" data-light-hover="x-hover-light.svg" data-dark-hover="x-dark.svg" alt="X Hover">
+                </div>
+            </a>
+        </div>
+
+        <p class="ada-text">ada ceylan</p>
+        <p data-tr="© 2025 adCa game. tüm hakları saklıdır." data-en="© 2025 adCa game. all rights reserved.">© 2025 adCa game. tüm hakları saklıdır.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleButton = document.querySelector(".menu-toggle");
+            const menu = document.querySelector("nav");
+
+            if (toggleButton) {
+                toggleButton.addEventListener("click", function () {
+                    menu.classList.toggle("show");
+                });
+            }
+
+            const savedTheme = localStorage.getItem("adCa_theme");
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    applyTheme("dark");
+                } else {
+                    applyTheme("light");
+                }
+            }
+
+            const savedLang = localStorage.getItem("adCa_lang");
+            if (savedLang) {
+                setLanguage(savedLang);
+            } else {
+                const userLang = navigator.language || navigator.userLanguage;
+                if (userLang && userLang.toLowerCase().startsWith("tr")) {
+                    setLanguage("tr");
+                } else {
+                    setLanguage("en");
+                }
+            }
+            
+            renderNewsCards();
+        });
+
+        function applyTheme(theme) {
+            const body = document.body;
+            const logoHoverImg = document.getElementById("logoHoverImg");
+            const footerLogoHoverImg = document.getElementById("footerLogoHoverImg");
+            const themeIconDefault = document.getElementById("themeIconDefault");
+            const themeIconHover = document.getElementById("themeIconHover");
+            const socialHoverIcons = document.querySelectorAll(".social-hover-icon");
+
+            localStorage.setItem("adCa_theme", theme);
+
+            if (theme === "dark") {
+                body.classList.add("dark-theme");
+                if (logoHoverImg) logoHoverImg.src = "adCa-logo-hover-dark.svg";
+                if (footerLogoHoverImg) footerLogoHoverImg.src = "adCa-logo-hover-dark.svg";
+                if (themeIconDefault) themeIconDefault.src = "light-mode.svg";
+                if (themeIconHover) themeIconHover.src = "light-mode-hover.svg";
+                socialHoverIcons.forEach(icon => {
+                    const darkSrc = icon.getAttribute("data-dark-hover");
+                    if (darkSrc) icon.src = darkSrc;
+                });
+            } else {
+                body.classList.remove("dark-theme");
+                if (logoHoverImg) logoHoverImg.src = "adCa-logo-hover-light.svg";
+                if (footerLogoHoverImg) footerLogoHoverImg.src = "adCa-logo-hover-light.svg";
+                if (themeIconDefault) themeIconDefault.src = "dark-mode.svg";
+                if (themeIconHover) themeIconHover.src = "dark-mode-hover.svg";
+                socialHoverIcons.forEach(icon => {
+                    const lightSrc = icon.getAttribute("data-light-hover");
+                    if (lightSrc) icon.src = lightSrc;
+                });
+            }
+        }
+
+        function toggleTheme() {
+            if (document.body.classList.contains("dark-theme")) {
+                applyTheme("light");
+            } else {
+                applyTheme("dark");
+            }
+        }
+
+        let currentLang = "tr";
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const langBtn = document.getElementById("langToggleBtn");
+            const htmlTag = document.documentElement;
+
+            localStorage.setItem("adCa_lang", currentLang);
+
+            if (langBtn) {
+                if (currentLang === "en") {
+                    langBtn.innerText = "türkçe";
+                } else {
+                    langBtn.innerText = "english";
+                }
+            }
+            htmlTag.setAttribute("lang", currentLang);
+
+            document.querySelectorAll("[data-tr]").forEach(el => {
+                if (currentLang === "en") {
+                    const enText = el.getAttribute("data-en");
+                    if (enText) el.innerText = enText;
+                } else {
+                    const trText = el.getAttribute("data-tr");
+                    if (trText) el.innerText = trText;
+                }
+            });
+
+            renderNewsCards();
+        }
+
+        function toggleLanguage() {
+            if (currentLang === "tr") {
+                setLanguage("en");
+            } else {
+                setLanguage("tr");
+            }
+        }
+
+        function renderNewsCards() {
+            const container = document.getElementById("newsContainer");
+            if (!container) return;
+
+            let newsList = JSON.parse(localStorage.getItem("adCaNews")) || [];
+
+            if (newsList.length === 0) {
+                container.innerHTML = `<p class="empty-message" data-tr="henüz eklenmiş bir güncelleme yok." data-en="no updates added yet.">${currentLang === 'en' ? 'no updates added yet.' : 'henüz eklenmiş bir güncelleme yok.'}</p>`;
+                return;
+            }
+
+            let htmlContent = "";
+            newsList.forEach(item => {
+                let title = currentLang === 'en' ? (item.titleEn || item.title) : item.title;
+                let content = currentLang === 'en' ? (item.contentEn || item.content) : item.content;
+
+                let contentHtml = content ? `<p>${content}</p>` : "";
+
+                htmlContent += `
+                <div class="news-card">
+                    <div class="news-card-header">
+                        <h2>${title}</h2>
+                        <span class="news-card-date">${item.date}</span>
+                    </div>
+                    ${contentHtml}
+                </div>`;
+            });
+
+            container.innerHTML = htmlContent;
+        }
+    </script>
+</body>
+</html>
